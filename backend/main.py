@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from langgraph_workflow import workflow
 
 from database import SessionLocal, engine, Base
 from models import Customer
@@ -95,4 +96,16 @@ def update_customer(customer_id: int, updated_data: dict):
 
     return {
         "message": "Customer updated successfully"
+    }
+@app.post("/analyze")
+def analyze_customer(data: dict):
+
+    result = workflow.invoke({
+        "customer_name": data["name"],
+        "customer_email": data["email"],
+        "analysis": ""
+    })
+
+    return {
+        "analysis": result["analysis"]
     }

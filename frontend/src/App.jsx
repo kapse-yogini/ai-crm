@@ -4,7 +4,7 @@ function App() {
   const [customers, setCustomers] = useState([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-
+  const [analysis, setAnalysis] = useState("");
   useEffect(() => {
     fetch("http://127.0.0.1:8000/customers")
       .then((res) => res.json())
@@ -84,7 +84,31 @@ function App() {
     });
 
     setCustomers(updatedCustomers);
-  };
+  };  
+  const analyzeCustomer = async (customer) => {
+
+  const response = await fetch(
+    "http://127.0.0.1:8000/analyze",
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        name: customer.name,
+        email: customer.email,
+      }),
+    }
+  );
+
+  const data = await response.json();
+
+  setAnalysis(
+    `${customer.name}: ${data.analysis}`
+  );
+};
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial" }}>
@@ -122,7 +146,9 @@ function App() {
       </button>
 
       <hr />
+      <h3>AI Analysis</h3>
 
+      <p>{analysis}</p>
       {customers.map((customer) => (
         <div
           key={customer.id}
@@ -155,6 +181,16 @@ function App() {
           >
             Update
           </button>
+          <button
+           onClick={() => analyzeCustomer(customer)}
+           style={{
+           marginLeft: "10px",
+           padding: "5px 10px",
+  }}
+>
+           Analyze Lead
+           </button>
+      
         </div>
       ))}
     </div>
