@@ -1,6 +1,6 @@
 # AI CRM
 
-A full-stack CRM application built using React, FastAPI, and SQLite.
+A full-stack AI-powered CRM application built using React, FastAPI, SQLite, SQLAlchemy, and LangGraph.
 
 ## Features
 
@@ -9,9 +9,12 @@ A full-stack CRM application built using React, FastAPI, and SQLite.
 - Update Customers
 - Delete Customers
 - Persistent Database Storage
+- AI Lead Analysis
+- LangGraph Workflow Integration
+
+---
 
 ## Tech Stack
-
 
 ### Frontend
 - React
@@ -24,6 +27,24 @@ A full-stack CRM application built using React, FastAPI, and SQLite.
 ### Database
 - SQLite
 
+### AI Workflow
+- LangGraph
+- LangChain
+
+---
+
+## LangGraph Workflow
+
+The project includes a LangGraph workflow with 5 tools/nodes:
+
+1. Create Customer Tool
+2. Read Customer Tool
+3. Update Customer Tool
+4. Delete Customer Tool
+5. Analyze Customer Tool
+
+The workflow performs customer lead analysis and classification.
+
 ---
 
 ## Frontend Setup
@@ -32,27 +53,3 @@ A full-stack CRM application built using React, FastAPI, and SQLite.
 cd frontend
 npm install
 npm run dev
-```
-
-## Backend Setup
-
-```bash
-cd backend
-
-python -m venv venv
-
-venv\Scripts\activate
-
-pip install fastapi uvicorn sqlalchemy
-
-python -m uvicorn main:app --reload
-```
-
----
-
-## API Endpoints
-
-- GET /customers
-- POST /customers
-- PUT /customers/{id}
-- DELETE /customers/{id}
